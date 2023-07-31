@@ -1,0 +1,23 @@
+name = "worker"
+main = "./dist/index.mjs"
+compatibility_date = "2022-09-08"
+
+[build]
+command = "yarn && yarn test && yarn build"
+
+[vars]
+RATE_LIMIT_RULES = [
+    { timePeriod = 15_000,    maximumRequests = 20 },
+    { timePeriod = 60_000,    maximumRequests = 50 },
+    { timePeriod = 3_600_000, maximumRequests = 1000 },
+]
+IDENTIFIER_CLAIM = "roles"
+JWKS_URI = "https://auth.example.com/.well-known/jwks.json"
+LOG_LEVEL = "DEBUG"
+
+[durable_objects]
+bindings = [{name = "RATE_LIMITER", class_name = "RateLimiter"}]
+
+[[migrations]]
+tag = "v1" # Should be unique for each entry
+new_classes = ["RateLimiter"]
