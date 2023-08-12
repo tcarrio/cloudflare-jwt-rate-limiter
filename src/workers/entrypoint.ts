@@ -8,12 +8,6 @@ import { Just, Maybe } from '../types';
 // NOTE: We MUST export our Durable Object namespace from the root module
 export { RateLimiter } from '../rate-limiter';
 
-/**
- * Singleton instance of the JWT de/serializer which is instantiated as part of
- * the first request handler invocation
- */
-let jwt: JwtSerde;
-
 // NOTE: Default export defines the request controller as `fetch`
 export default {
   async fetch(request: Readonly<Request>, env: Env) {
